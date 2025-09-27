@@ -20,7 +20,7 @@ export default async function stopServerInstance(req, res, next) {
       await stopInstanceOnRunpod(instance.podId);
     } else {
       //pod id was never assigned
-      instance.status = "STOPPED";
+      instance.status = "TERMINATED";
       await instance.save();
     }
 
