@@ -9,13 +9,27 @@ let serverInstance = new mongoose.Schema(
       type: ObjectId,
       required: true,
     },
+    projectName: String,
+    podId: String,
     status: { type: String, enum: ["RUNNING", "DELETED"], default: "RUNNING" },
     // There is no off state
     // because sometimes runpod GPU stops working if you restart a stopped instance
-    instanceGpuType: { type: String, enum: ["RTX_4090", "GTX_2090"] },
+    instanceGpuType: {
+      type: String,
+      enum: [
+        "RTX_5090",
+        "RTX_6000_ADA",
+        "RTX_4090",
+        "RTX_3090",
+        "RTX_A6000",
+        "RTX_A5000",
+      ],
+    },
     stoppedAt: Date,
-    minuteRan: Number,
-    charges: Number, //in cents
+    startedAt: Date,
+    costEstimatedAtTermination: { type: Number, default: 0 },
+    minuteRan: { type: Number, default: 0 },
+    charges: { type: Number, default: 0 }, //in cents //Incremented every minute
   },
   { timestamps: true }
 );
