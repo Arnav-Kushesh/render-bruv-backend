@@ -53,6 +53,10 @@ import getReports from "../controllers/api/report/getReports.js";
 import addOrEditAdminData from "../controllers/api/admin/addOrEditAdminData.js";
 import getAdminData from "../controllers/api/admin/getAdminData.js";
 import deleteItem from "../controllers/api/delete/DeleteItem.js";
+import getServerInstanceList from "../controllers/instance/getServerInstanceList.js";
+import getServerInstanceData from "../controllers/instance/getServerInstanceData.js";
+import createServerInstance from "../controllers/instance/createServerInstance.js";
+import stopServerInstance from "../controllers/instance/stopServerInstance.js";
 
 const router = express.Router();
 
@@ -92,6 +96,7 @@ router.get("/replies", getReplies);
 router.patch("/comment", editCommentOrReply);
 router.delete("/comment", deleteCommentOrReply);
 
+//Util
 router.use("/logged-in-user", getLoggedInUser);
 router.post("/app-cookie", postAppCookie);
 router.get("/s3-upload-url", getS3UploadUrl);
@@ -128,6 +133,12 @@ router.get("/cities", getCities);
 router.get("/reports", getReports);
 router.post("/report", postReport);
 router.post("/report-decision", postReportDecision);
+
+//Instances
+router.get("/server-instances", getServerInstanceList);
+router.get("/server-instance", getServerInstanceData);
+router.post("/create-server-instance", createServerInstance);
+router.post("/stop-server-instance", stopServerInstance);
 
 router.get("*", function (req, res, next) {
   return next("404");

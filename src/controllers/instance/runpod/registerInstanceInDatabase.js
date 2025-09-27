@@ -1,4 +1,4 @@
-import ServerInstance from "../../../database/models/ServerInstance";
+import ServerInstance from "../../../database/models/ServerInstance.js";
 
 export default async function registerInstanceInDatabase({
   podId,
@@ -13,5 +13,6 @@ export default async function registerInstanceInDatabase({
   serverInstance.startedAt = new Date();
   serverInstance.projectName = projectName;
 
-  await serverInstance.save();
+  let newItem = await serverInstance.save();
+  return newItem;
 }

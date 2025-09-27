@@ -1,15 +1,13 @@
-import supportedGpuTypes from "../../../data/supportedGpuTypes";
-import registerInstanceInDatabase from "./registerInstanceInDatabase";
+import supportedGpuTypes from "../../../data/supportedGpuTypes.js";
+import registerInstanceInDatabase from "./registerInstanceInDatabase.js";
 
 export default async function createInstanceOnRunpod({
   loggedInUser,
-  reqBody,
+  projectName,
+  internalGpuId,
 }) {
   const BASE_URL = "https://rest.runpod.io/v1";
   let RUNPOD_API_KEY = process.env.RUNPOD_API_KEY;
-
-  let internalGpuId = reqBody.gpuId;
-  let { projectName } = reqBody;
 
   let runpodGpuId = supportedGpuTypes[internalGpuId]?.runpodId;
 
@@ -21,12 +19,11 @@ export default async function createInstanceOnRunpod({
       name: `${loggedInUser.username}-pod`,
       imageName: "merahulahire/cloud-blender-render",
       gpuTypeIds: [runpodGpuId],
-      numGpus: 1,
+      //   numGpus: 1,
       volumeMountPath: "/workspace",
       ports: ["4000/http", "8888/http", "22/tcp", "443/tcp"],
       volumeInGb: 20,
       containerDiskInGb: 50, //This is assigned to /workspace
-      numGpus: 1,
       env: {
         userId: loggedInUser._id,
       },
@@ -41,20 +38,20 @@ export default async function createInstanceOnRunpod({
       body: JSON.stringify(body),
     });
 
-    const instanceData = await response.json();
+    const runpodData = await response.json();
 
     // console.log("instanceData", instanceData);
 
-    const podId = instanceData.id;
+    const podId = runpodData.id;
 
-    let projectData = await registerInstanceInDatabase({
+    let serverInstance = await registerInstanceInDatabase({
       userId: loggedInUser._id,
       podId: podId,
       projectName,
       gpyId: internalGpuId,
     });
 
-    return { projectData, instanceData };
+    return { serverInstance, runpodData };
   } catch (error) {
     console.error(error);
     throw Error(error.message);

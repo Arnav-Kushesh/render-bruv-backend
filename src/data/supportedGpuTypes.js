@@ -21,7 +21,7 @@ let supportedGpuTypes = {
 };
 
 //Add per minute price
-for (let itemId of supportedGpuTypes) {
+for (let itemId in supportedGpuTypes) {
   let item = supportedGpuTypes[itemId];
   item.perMinutePrice = item.price / 60;
 }

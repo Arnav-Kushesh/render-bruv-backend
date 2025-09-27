@@ -11,7 +11,11 @@ let serverInstance = new mongoose.Schema(
     },
     projectName: String,
     podId: String,
-    status: { type: String, enum: ["RUNNING", "DELETED"], default: "RUNNING" },
+    status: {
+      type: String,
+      enum: ["RUNNING", "TERMINATED"],
+      default: "RUNNING",
+    },
     // There is no off state
     // because sometimes runpod GPU stops working if you restart a stopped instance
     instanceGpuType: {

@@ -8,7 +8,7 @@ export default async function stopInstanceOnRunpod(podId) {
 
   let gpuType = supportedGpuTypes[instance.instanceGpuType];
 
-  const response = await fetch(`https://api.runpod.io/v1/pods/${podId}`, {
+  const response = await fetch(`https://rest.runpod.io/v1/pods/${podId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${process.env.RUNPOD_API_KEY}`,
@@ -17,12 +17,16 @@ export default async function stopInstanceOnRunpod(podId) {
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to terminate pod: ${response.statusText}`);
+    if (response.statusText == "Not Found") {
+      console.log("Pod already terminated");
+    } else {
+      throw new Error(`Failed to terminate pod: ${response.statusText}`);
+    }
   }
 
-  const result = await response.json();
+  //   const result = await response.json();
 
-  instance.status = "STOPPED";
+  instance.status = "TERMINATED";
   instance.stoppedAt = new Date();
   let totalMinutesRan = differenceInMinutes(instance.startedAt, Date.now());
   instance.costEstimatedAtTermination =
@@ -36,7 +40,7 @@ export default async function stopInstanceOnRunpod(podId) {
       `Charges Accumulated Over Time: ${instance.charges}`
     );
   }
-  return result;
+  //   return result;
 }
 
 function differenceInMinutes(date1, date2) {
