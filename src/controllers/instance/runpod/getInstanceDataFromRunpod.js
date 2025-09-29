@@ -11,7 +11,7 @@ export default async function getInstanceDataFromRunpod(podId) {
 
   const podData = await podDataResponse.json();
 
-  console.log("podData", podData, podId);
+  //   console.log("podData", podData, podId);
 
-  return { podData };
+  return podData;
 }

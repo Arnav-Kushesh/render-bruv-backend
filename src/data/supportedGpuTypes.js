@@ -5,19 +5,20 @@
 
 //3090 is removed because price difference between 3090 and 4090 is very small
 
-//per minute price can be calculated at run time but doing it here simplifies the code
-
 let supportedGpuTypes = {
   RTX_5090: {
     runpodId: "NVIDIA GeForce RTX 5090",
     price: 180,
     label: "Super Fast",
+    secondaryLabel: "RTX 5090",
   },
   RTX_4090: {
     runpodId: "NVIDIA GeForce RTX 4090",
     price: 120,
     label: "Fast",
+    secondaryLabel: "RTX 4090",
   },
+  //   RTX_3090: { runpodId: "NVIDIA GeForce RTX 3090", pricing: 120 },
 };
 
 //Add per minute price
