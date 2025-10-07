@@ -53,4 +53,4 @@ serverInstance.index({
   createdAt: -1,
 });
 
-export default mainMongooseInstance.model("serverInstance", serverInstance);
+export default mainMongooseInstance.model("server_instance", serverInstance);

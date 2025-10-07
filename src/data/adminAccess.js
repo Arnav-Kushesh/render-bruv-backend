@@ -1,3 +1,3 @@
-let adminAccess = ["arnav", "tariq"];
+let adminAccess = ["arnav", "rishabh", "nikhil"];
 
 export default adminAccess;

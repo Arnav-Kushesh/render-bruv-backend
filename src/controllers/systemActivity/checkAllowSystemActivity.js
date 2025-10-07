@@ -1,13 +1,7 @@
 import SystemActivity from "../../database/models/SystemActivity.js";
 
 let quota = {
-  UNSPLASH_SEARCH: 100,
-  IMAGE_UPLOAD: 10,
-  POST_CONTENT: 50,
-  POST_LIKE: 100,
-  POST_COMMENT: 20,
-  REQUEST_MEMBERSHIP: 5,
-  ACTIVITY_RECHARGE: 5,
+  UPLOAD: 100,
 };
 
 export default async function checkAllowSystemActivity({

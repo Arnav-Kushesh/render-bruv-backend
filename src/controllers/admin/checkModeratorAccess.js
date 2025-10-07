@@ -1,9 +1,11 @@
 import adminAccess from "../../data/adminAccess.js";
 import AdminData from "../../database/models/AdminData.js";
 
-export default async function checkModeratorAccess(req) {
+export default async function checkModeratorAccess(req, onlyAdmin) {
   if (!req.user) return false;
   if (adminAccess.includes(req.user.username)) return true;
+
+  if (onlyAdmin) return false;
 
   let moderatorListDoc = await AdminData.find({ type: "MODERATOR_LIST" });
   if (!moderatorListDoc) return false;

@@ -1,4 +1,5 @@
 import Profile from "../../../database/models/Profile.js";
+import checkModeratorAccess from "../../admin/checkModeratorAccess.js";
 import handlePagination from "../../utils/handlePagination.js";
 import attachFollowStatusToDocs from "../utils/attachFollowStatusToDocs.js";
 
@@ -12,6 +13,12 @@ export default async function getProfiles(req, res, next) {
   if (req.query.hasNewReports) {
     query.hasNewReports = true;
     sortQuery = { pendingReports: -1 };
+  }
+
+  if (req.query.topUsersListForAdmin) {
+    let hasAccess = await checkModeratorAccess(req);
+    if (!hasAccess) return next("Permission Denied");
+    sortQuery = { totalMinutesUsed: -1 };
   }
 
   console.log(query);

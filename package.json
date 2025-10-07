@@ -31,6 +31,7 @@
     "countrycitystatejson": "^25.8.101",
     "crypto-js": "^4.1.1",
     "current-week-number": "^1.0.7",
+    "dodopayments": "^2.1.1",
     "dotenv": "^16.0.3",
     "email-validator": "^2.0.4",
     "express": "^4.18.2",

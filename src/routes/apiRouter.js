@@ -57,6 +57,12 @@ import getServerInstanceList from "../controllers/instance/getServerInstanceList
 import getServerInstanceData from "../controllers/instance/getServerInstanceData.js";
 import createServerInstance from "../controllers/instance/createServerInstance.js";
 import stopServerInstance from "../controllers/instance/stopServerInstance.js";
+import getCompanyTransactions from "../controllers/moneyAndStat/read/getCompanyTransactions.js";
+import getCompanyStat from "../controllers/moneyAndStat/read/getCompanyStat.js";
+import withdrawProfit from "../controllers/moneyAndStat/coreMoneyActions/withdrawProfit.js";
+import deductPendingExpenses from "../controllers/moneyAndStat/coreMoneyActions/deductPendingExpense.js";
+import getStaticPaymentLink from "../controllers/moneyAndStat/dodoPayment/getStaticPaymentLink.js";
+import verifyPayment from "../controllers/moneyAndStat/dodoPayment/verifyPayment.js";
 
 const router = express.Router();
 
@@ -139,6 +145,17 @@ router.get("/server-instances", getServerInstanceList);
 router.get("/server-instance", getServerInstanceData);
 router.post("/create-server-instance", createServerInstance);
 router.post("/stop-server-instance", stopServerInstance);
+
+//Money & Stat
+router.get("/company-transactions", getCompanyTransactions);
+router.get("/company-stat", getCompanyStat);
+//Action
+router.post("/deduct-pending-expenses", deductPendingExpenses);
+router.post("/withdraw-profit", withdrawProfit);
+
+//Money
+router.get("/static-payment-link", getStaticPaymentLink);
+router.post("/verify-payment", verifyPayment);
 
 router.get("*", function (req, res, next) {
   return next("404");

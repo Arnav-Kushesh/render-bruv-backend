@@ -41,10 +41,10 @@ let profile = new mongoose.Schema(
 
     //
     useCase: { type: String }, // What and how they are going to use the product
-    awarenessSource: { type: String }, //Who told them about this product
+    signupSource: { type: String }, //Who told them about this product
     //
 
-    currentBalance: { type: Number },
+    currentBalanceInCents: { type: Number, default: 0 },
 
     profileImageOnboardingSkipped: { type: Boolean, default: false },
 

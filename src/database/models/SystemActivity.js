@@ -12,15 +12,7 @@ let systemActivity = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: [
-        "MODIFY_PROFILE",
-        "CREATE_PROFILE",
-        "MODIFY_SITE",
-        "CREATE_SITE",
-        "MODIFY_COMMENT",
-        "CREATE_COMMENT",
-        "UPLOAD",
-      ],
+      enum: ["UPLOAD"],
       required: true,
     },
   },
@@ -32,4 +24,4 @@ systemActivity.index({
   type: -1,
 });
 
-export default mainMongooseInstance.model("systemActivity", systemActivity);
+export default mainMongooseInstance.model("system_activity", systemActivity);

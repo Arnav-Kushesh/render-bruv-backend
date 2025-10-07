@@ -3,11 +3,16 @@ import mainMongooseInstance from "../../mongoConfig.js";
 
 var ObjectId = mongoose.mongo.ObjectId;
 
-let recharge = new mongoose.Schema(
+let rechargeHistory = new mongoose.Schema(
   {
-    authorUserId: {
+    userId: {
       type: ObjectId,
       required: true,
+    },
+    transactionId: String, //id provided by payment facilitator
+    paymentFacilitator: {
+      type: String,
+      enum: ["DODO_PAYMENT", "STRIPE", "RAZORPAY"],
     },
     note: String,
     amount: Number, //amount in cents
@@ -15,13 +20,13 @@ let recharge = new mongoose.Schema(
   { timestamps: true }
 );
 
-recharge.index({
-  authorUserId: 1,
+rechargeHistory.index({
+  userId: 1,
   createdAt: -1,
 });
 
-transaction.index({
+rechargeHistory.index({
   createdAt: -1,
 });
 
-export default mainMongooseInstance.model("recharge", recharge);
+export default mainMongooseInstance.model("recharge_history", rechargeHistory);

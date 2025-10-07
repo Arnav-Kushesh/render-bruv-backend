@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import mainMongooseInstance from '../mongoConfig.js';
+import mongoose from "mongoose";
+import mainMongooseInstance from "../mongoConfig.js";
 
 let adminData = new mongoose.Schema(
   {
@@ -9,4 +9,4 @@ let adminData = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mainMongooseInstance.model('adminData', adminData);
+export default mainMongooseInstance.model("admin_data", adminData);

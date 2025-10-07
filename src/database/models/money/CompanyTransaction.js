@@ -5,7 +5,8 @@ var ObjectId = mongoose.mongo.ObjectId;
 
 let companyTransaction = new mongoose.Schema(
   {
-    authorUserId: {
+    userId: {
+      //user responsible for the transaction
       type: ObjectId,
     },
     type: {
@@ -15,16 +16,22 @@ let companyTransaction = new mongoose.Schema(
         "PROFIT",
         "EXPENSE",
         "PENDING_EXPENSE",
-        "PROFIT_WITHDRAWN",
+        "EXPENSE_DEPOSIT",
+        "PROFIT_WITHDRAWAL",
       ],
     },
     note: String,
-    amountDeducted: Number, //amount in cents
-    amountAdded: Number, //amount in cents
+
+    amount: Number, //amount in cents
     //
     withdrawableAmount: Number, // in cents
-    pendingExpense: Number, // in cents
+    pendingExpenses: Number, // in cents
     //
+    transactionId: String, //id provided by payment facilitator
+    paymentFacilitator: {
+      type: String,
+      enum: ["DODO_PAYMENT", "STRIPE", "RAZORPAY"],
+    },
   },
   { timestamps: true }
 );
@@ -34,6 +41,6 @@ companyTransaction.index({
 });
 
 export default mainMongooseInstance.model(
-  "companyTransaction",
+  "company_transaction",
   companyTransaction
 );
