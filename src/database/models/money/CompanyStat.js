@@ -11,7 +11,6 @@ let companyStat = new mongoose.Schema(
         "REVENUE",
         "PROFIT",
         "PROFIT_WITHDRAWAL",
-        "EXPENSE",
         "PENDING_EXPENSE",
         "EXPENSE_DEPOSIT",
         "SIGNUP",
