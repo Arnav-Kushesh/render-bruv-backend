@@ -18,12 +18,16 @@ export default async function deductPendingExpenses(req, res, next) {
 
   let latestDoc = await CompanyTransaction.findOne().sort({ createdAt: -1 });
 
+  let oldPendingExpenses = 0;
+
+  if (latestDoc.pendingExpenses) oldPendingExpenses = latestDoc.pendingExpenses;
+
   let newDoc = new CompanyTransaction();
   newDoc.type = "EXPENSE_DEPOSIT";
   newDoc.userId = userId;
   newDoc.amountInCents = amountInCents;
   newDoc.withdrawableAmount = latestDoc.withdrawableAmount;
-  newDoc.pendingExpenses = latestDoc.pendingExpenses - amountInCents;
+  newDoc.pendingExpenses = oldPendingExpenses - amountInCents;
   await newDoc.save();
 
   await addDataToCompanyStat({

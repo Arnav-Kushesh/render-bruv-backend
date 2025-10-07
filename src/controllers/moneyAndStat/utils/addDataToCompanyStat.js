@@ -13,7 +13,6 @@ async function addDataCore({ durationType, type, amount }) {
     date,
     durationType,
     type,
-    amount,
   });
 
   if (docExists) {
