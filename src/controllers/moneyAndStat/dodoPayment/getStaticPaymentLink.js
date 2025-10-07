@@ -17,9 +17,15 @@ export default function getStaticPaymentLink(req, res, next) {
     "DODO_FIVE_DOLLAR_PRODUCT_ID"
   );
 
+  let envType = process.env.ENV_TYPE;
+  let isDev = envType == "development";
+
   let redirectUrl = getEnvVarBasedOnEnvType("FRONTEND_URL") + "/verify-payment";
 
-  let url = `https://checkout.dodopayments.com/buy/${theFiveDollarProductId}/?quantity=${quantity}&redirect_url=${redirectUrl}`;
+  let baseUrl = `https://checkout.dodopayments.com`;
+  if (isDev) baseUrl = `https://test.checkout.dodopayments.com`;
+
+  let url = `${baseUrl}/buy/${theFiveDollarProductId}/?quantity=${quantity}&redirect_url=${redirectUrl}`;
 
   return res.json({ data: url });
 }

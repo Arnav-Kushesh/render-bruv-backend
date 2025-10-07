@@ -3,17 +3,25 @@ import getEnvVarBasedOnEnvType from "../../getEnvVarBasedOnEnvType.js";
 import RechargeHistory from "../../../database/models/money/RechargeHistory.js";
 import registerRecharge from "../coreMoneyActions/registerRecharge.js";
 
+let envType = process.env.ENV_TYPE;
+let isDev = envType == "development";
+
 export default async function verifyPayment(req, res, next) {
   let user = req.user;
 
   if (!user) return next("Login Required");
 
   try {
+    let apiKey = getEnvVarBasedOnEnvType("DODO_PAYMENTS_API_KEY");
+
     const client = new DodoPayments({
-      bearerToken: getEnvVarBasedOnEnvType("DODO_PAYMENTS_API_KEY"),
+      bearerToken: apiKey,
+      environment: isDev ? "test_mode" : "live_mode",
     });
 
     let { paymentId } = req.body;
+
+    console.log(apiKey, paymentId);
 
     const payment = await client.payments.retrieve(paymentId);
 
@@ -54,6 +62,7 @@ export default async function verifyPayment(req, res, next) {
 
     return res.json({ data: { amountInCents } });
   } catch (e) {
+    console.log(e);
     return next(e.message);
   }
 }

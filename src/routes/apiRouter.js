@@ -63,6 +63,8 @@ import withdrawProfit from "../controllers/moneyAndStat/coreMoneyActions/withdra
 import deductPendingExpenses from "../controllers/moneyAndStat/coreMoneyActions/deductPendingExpense.js";
 import getStaticPaymentLink from "../controllers/moneyAndStat/dodoPayment/getStaticPaymentLink.js";
 import verifyPayment from "../controllers/moneyAndStat/dodoPayment/verifyPayment.js";
+import getRechargeHistory from "../controllers/moneyAndStat/read/getRechargeHistory.js";
+import getUserTransactions from "../controllers/moneyAndStat/read/getUserTransactions.js";
 
 const router = express.Router();
 
@@ -149,6 +151,8 @@ router.post("/stop-server-instance", stopServerInstance);
 //Money & Stat
 router.get("/company-transactions", getCompanyTransactions);
 router.get("/company-stat", getCompanyStat);
+router.get("/user-transactions", getUserTransactions);
+router.get("/recharge-history", getRechargeHistory);
 //Action
 router.post("/deduct-pending-expenses", deductPendingExpenses);
 router.post("/withdraw-profit", withdrawProfit);
