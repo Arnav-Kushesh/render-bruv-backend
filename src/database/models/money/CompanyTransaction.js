@@ -22,7 +22,7 @@ let companyTransaction = new mongoose.Schema(
     },
     note: String,
 
-    amount: Number, //amount in cents
+    amountInCents: Number, //amount in cents
     //
     withdrawableAmount: Number, // in cents
     pendingExpenses: Number, // in cents

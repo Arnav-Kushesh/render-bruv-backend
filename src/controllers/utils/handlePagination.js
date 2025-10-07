@@ -18,6 +18,8 @@ export default async function handlePagination({
     itemsPerPage = 90000;
   }
 
+  if (!currentPage) currentPage = 0;
+
   itemsPerPage = parseInt(itemsPerPage);
   currentPage = parseInt(currentPage);
 

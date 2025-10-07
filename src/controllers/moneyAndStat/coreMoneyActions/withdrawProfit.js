@@ -16,7 +16,7 @@ export default async function withdrawProfit(req, res, next) {
 
   if (isNaN(amountInCents)) return next("Invalid Amount: NAN");
 
-  let latestDoc = await MyModel.findOne().sort({ createdAt: -1 });
+  let latestDoc = await CompanyTransaction.findOne().sort({ createdAt: -1 });
 
   let newDoc = new CompanyTransaction();
   newDoc.type = "PROFIT_WITHDRAWAL";

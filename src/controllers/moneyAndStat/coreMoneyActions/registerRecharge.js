@@ -87,11 +87,34 @@ async function addDocsInCompanyTransactions({
   transactionId,
   paymentFacilitator,
 }) {
+  let currentPendingExpenses = 0;
+  let currentWithdrawableAmount = 0;
+
+  let latestDoc = await CompanyTransaction.findOne().sort({ createdAt: -1 });
+
+  if (latestDoc) {
+    if (latestDoc.withdrawableAmount) {
+      currentWithdrawableAmount = latestDoc.withdrawableAmount;
+    }
+
+    if (latestDoc.pendingExpenses) {
+      currentPendingExpenses = latestDoc.pendingExpenses;
+    }
+  }
+
+  let profit = amountInCents / 2;
+  let expense = amountInCents / 2;
+
+  let newPendingExpenses = currentPendingExpenses + expense;
+  let newWithdrawableAmount = currentWithdrawableAmount + profit;
+
   await addRevenueDocToCompanyTransactions({
     userId,
     amountInCents,
     transactionId,
     paymentFacilitator,
+    newPendingExpenses,
+    newWithdrawableAmount,
   });
 
   await addPendingExpenseDocToCompanyTransactions({
@@ -99,6 +122,8 @@ async function addDocsInCompanyTransactions({
     amountInCents,
     transactionId,
     paymentFacilitator,
+    newPendingExpenses,
+    newWithdrawableAmount,
   });
 
   await addProfitDocToCompanyTransactions({
@@ -106,6 +131,8 @@ async function addDocsInCompanyTransactions({
     amountInCents,
     transactionId,
     paymentFacilitator,
+    newPendingExpenses,
+    newWithdrawableAmount,
   });
 }
 
@@ -115,6 +142,8 @@ async function addRevenueDocToCompanyTransactions({
   amountInCents,
   transactionId,
   paymentFacilitator,
+  newPendingExpenses,
+  newWithdrawableAmount,
 }) {
   await addDataToCompanyStat({ type: "REVENUE", amount: amountInCents });
 
@@ -124,6 +153,8 @@ async function addRevenueDocToCompanyTransactions({
   newDoc.amountInCents = amountInCents;
   newDoc.transactionId = transactionId;
   newDoc.paymentFacilitator = paymentFacilitator;
+  newDoc.pendingExpenses = newPendingExpenses;
+  newDoc.withdrawableAmount = newWithdrawableAmount;
   await newDoc.save();
 }
 
@@ -132,6 +163,8 @@ async function addPendingExpenseDocToCompanyTransactions({
   amountInCents,
   transactionId,
   paymentFacilitator,
+  newPendingExpenses,
+  newWithdrawableAmount,
 }) {
   await addDataToCompanyStat({
     type: "PENDING_EXPENSE",
@@ -144,12 +177,9 @@ async function addPendingExpenseDocToCompanyTransactions({
   newDoc.amountInCents = amountInCents;
   newDoc.transactionId = transactionId;
   newDoc.paymentFacilitator = paymentFacilitator;
+  newDoc.pendingExpenses = newPendingExpenses;
+  newDoc.withdrawableAmount = newWithdrawableAmount;
   await newDoc.save();
-
-  await CompanyTransaction.findOneAndUpdate(
-    { _id: newDoc._id },
-    { $inc: { pendingExpenses: amountInCents / 2 } }
-  );
 }
 
 async function addProfitDocToCompanyTransactions({
@@ -157,19 +187,18 @@ async function addProfitDocToCompanyTransactions({
   amountInCents,
   transactionId,
   paymentFacilitator,
+  newPendingExpenses,
+  newWithdrawableAmount,
 }) {
   await addDataToCompanyStat({ type: "PROFIT", amount: amountInCents });
 
   let newDoc = new CompanyTransaction();
-  newDoc.type = "REVENUE";
+  newDoc.type = "PROFIT";
   newDoc.userId = userId;
   newDoc.amountInCents = amountInCents;
   newDoc.transactionId = transactionId;
   newDoc.paymentFacilitator = paymentFacilitator;
+  newDoc.pendingExpenses = newPendingExpenses;
+  newDoc.withdrawableAmount = newWithdrawableAmount;
   await newDoc.save();
-
-  await CompanyTransaction.findOneAndUpdate(
-    { _id: newDoc._id },
-    { $inc: { withdrawableAmount: amountInCents / 2 } }
-  );
 }
