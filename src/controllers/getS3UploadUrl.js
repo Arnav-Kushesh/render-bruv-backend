@@ -9,7 +9,7 @@ import handleSystemActivity from "./systemActivity/handleSystemActivity.js";
 
 const region = "ap-south-1";
 
-const bucketName = "ta-naz-storage";
+const bucketName = "render-bruv-storage";
 const accessKeyId = process.env.AWS_S3_USER_ACCESS_KEY;
 const secretAccessKey = process.env.AWS_S3_USER_SECRET_KEY;
 
@@ -49,7 +49,7 @@ async function getS3UploadUrl(req, res, next) {
   createOrUpdateMetadata({ req, fileName, fileSize, fileExtension });
   captureStorageUsage(req, fileSize);
 
-  const imageName = `${process.env.ENV_TYPE.toLowerCase()}/karuna/${fileName}`;
+  const imageName = `${process.env.ENV_TYPE.toLowerCase()}/render-bruv/${fileName}`;
 
   const putObjectParams = {
     Bucket: bucketName,
