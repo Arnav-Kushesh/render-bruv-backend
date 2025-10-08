@@ -168,7 +168,7 @@ async function addPendingExpenseDocToCompanyTransactions({
 }) {
   await addDataToCompanyStat({
     type: "PENDING_EXPENSE",
-    amount: amountInCents,
+    amount: amountInCents / 2,
   });
 
   let newDoc = new CompanyTransaction();
@@ -190,7 +190,7 @@ async function addProfitDocToCompanyTransactions({
   newPendingExpenses,
   newWithdrawableAmount,
 }) {
-  await addDataToCompanyStat({ type: "PROFIT", amount: amountInCents });
+  await addDataToCompanyStat({ type: "PROFIT", amount: amountInCents / 1 });
 
   let newDoc = new CompanyTransaction();
   newDoc.type = "PROFIT";

@@ -42,6 +42,10 @@ let profile = new mongoose.Schema(
     //
     useCase: { type: String }, // What and how they are going to use the product
     signupSource: { type: String }, //Who told them about this product
+    experience: {
+      type: String,
+      enum: ["NEW", "BEGINNER", "INTERMEDIATE", "ADVANCED"],
+    },
     //
 
     currentBalanceInCents: { type: Number, default: 0 },

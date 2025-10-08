@@ -15,7 +15,7 @@ let rechargeHistory = new mongoose.Schema(
       enum: ["DODO_PAYMENT", "STRIPE", "RAZORPAY"],
     },
     note: String,
-    amount: Number, //amount in cents
+    amountInCents: Number, //amount in cents
   },
   { timestamps: true }
 );
