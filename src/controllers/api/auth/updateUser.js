@@ -32,6 +32,8 @@ export default async function updateUser(req, res, next) {
     bioOnboardingSkipped: "boolean",
     dateOfBirthOnboardingSkipped: "boolean",
     genderOnboardingSkipped: "boolean",
+    signupSource: "string",
+    useCase: "string",
   };
 
   if (changes.username) {
