@@ -3,11 +3,15 @@ import mainMongooseInstance from "../../mongoConfig.js";
 
 var ObjectId = mongoose.mongo.ObjectId;
 
-let companyStat = new mongoose.Schema(
+let stat = new mongoose.Schema(
   {
     type: {
       type: String,
       enum: [
+        "USER_INSTANCE_USAGE_IN_MIN", //Per User
+        "USER_INSTANCE_USAGE_IN_CENTS", //Per Platform
+        "INSTANCE_USAGE_IN_MIN", //Across All users
+        "INSTANCE_USAGE_IN_CENTS", //Across All users
         "REVENUE",
         "PROFIT",
         "PROFIT_WITHDRAWAL",
@@ -18,6 +22,7 @@ let companyStat = new mongoose.Schema(
         "INSTANCE_TERMINATION",
       ],
     },
+    userId: ObjectId,
     //
     //In case of monthly, it will be first day of the month
     //In case of yearly it will be the first day of the year
@@ -41,10 +46,10 @@ let companyStat = new mongoose.Schema(
   over too many date docs
 */
 
-companyStat.index({
+stat.index({
   type: -1,
   durationType: -1,
   createdAt: -1,
 });
 
-export default mainMongooseInstance.model("company_stat", companyStat);
+export default mainMongooseInstance.model("stat", stat);

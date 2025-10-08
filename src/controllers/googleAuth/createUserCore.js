@@ -5,7 +5,7 @@ import sendMailForEmailConfirmation from "../api/auth/sendMailForEmailConfirmati
 import generateUsername from "../generateUsername.js";
 
 import generateSixDigitNumber from "../generateSixDigitNumber.js";
-import addDataToCompanyStat from "../moneyAndStat/utils/addDataToCompanyStat.js";
+import addDataStatCollection from "../moneyAndStat/utils/addDataStatCollection.js";
 
 async function createUserCore({
   name,
@@ -50,7 +50,7 @@ async function createUserCore({
     });
   }
 
-  await addDataToCompanyStat({ type: "SIGNUP", amount: 1 });
+  await addDataStatCollection({ type: "SIGNUP", amount: 1 });
 
   try {
     user = await user_save.save();

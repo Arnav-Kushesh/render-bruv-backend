@@ -1,6 +1,6 @@
 import CompanyTransaction from "../../../database/models/money/CompanyTransaction.js";
 import checkModeratorAccess from "../../admin/checkModeratorAccess.js";
-import addDataToCompanyStat from "../utils/addDataToCompanyStat.js";
+import addDataStatCollection from "../utils/addDataStatCollection.js";
 
 export default async function deductPendingExpenses(req, res, next) {
   if (!req.user) return next("Login Required");
@@ -30,7 +30,7 @@ export default async function deductPendingExpenses(req, res, next) {
   newDoc.pendingExpenses = oldPendingExpenses - amountInCents;
   await newDoc.save();
 
-  await addDataToCompanyStat({
+  await addDataStatCollection({
     type: "EXPENSE_DEPOSIT",
     amount: amountInCents,
   });

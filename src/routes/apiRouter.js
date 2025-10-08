@@ -58,13 +58,14 @@ import getServerInstanceData from "../controllers/instance/getServerInstanceData
 import createServerInstance from "../controllers/instance/createServerInstance.js";
 import stopServerInstance from "../controllers/instance/stopServerInstance.js";
 import getCompanyTransactions from "../controllers/moneyAndStat/read/getCompanyTransactions.js";
-import getCompanyStat from "../controllers/moneyAndStat/read/getCompanyStat.js";
+
 import withdrawProfit from "../controllers/moneyAndStat/coreMoneyActions/withdrawProfit.js";
 import deductPendingExpenses from "../controllers/moneyAndStat/coreMoneyActions/deductPendingExpense.js";
 import getStaticPaymentLink from "../controllers/moneyAndStat/dodoPayment/getStaticPaymentLink.js";
 import verifyPayment from "../controllers/moneyAndStat/dodoPayment/verifyPayment.js";
 import getRechargeHistory from "../controllers/moneyAndStat/read/getRechargeHistory.js";
 import getUserTransactions from "../controllers/moneyAndStat/read/getUserTransactions.js";
+import getStatData from "../controllers/moneyAndStat/read/getStatData.js";
 
 const router = express.Router();
 
@@ -150,7 +151,7 @@ router.post("/stop-server-instance", stopServerInstance);
 
 //Money & Stat
 router.get("/company-transactions", getCompanyTransactions);
-router.get("/company-stat", getCompanyStat);
+router.get("/stat", getStatData);
 router.get("/user-transactions", getUserTransactions);
 router.get("/recharge-history", getRechargeHistory);
 //Action

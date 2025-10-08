@@ -1,5 +1,5 @@
 import supportedGpuTypes from "../../data/supportedGpuTypes.js";
-import addDataToCompanyStat from "../moneyAndStat/utils/addDataToCompanyStat.js";
+import addDataStatCollection from "../moneyAndStat/utils/addDataStatCollection.js";
 import createInstanceOnRunpod from "./runpod/createInstanceOnRunpod.js";
 
 export default async function createServerInstance(req, res, next) {
@@ -24,7 +24,7 @@ export default async function createServerInstance(req, res, next) {
       internalGpuId: gpuId,
     });
 
-    await addDataToCompanyStat({ type: "INSTANCE_CREATION", amount: 1 });
+    await addDataStatCollection({ type: "INSTANCE_CREATION", amount: 1 });
 
     return res.json({ data: data });
   } catch (e) {

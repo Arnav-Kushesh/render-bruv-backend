@@ -1,6 +1,6 @@
 import CompanyTransaction from "../../../database/models/money/CompanyTransaction.js";
 import checkModeratorAccess from "../../admin/checkModeratorAccess.js";
-import addDataToCompanyStat from "../utils/addDataToCompanyStat.js";
+import addDataStatCollection from "../utils/addDataStatCollection.js";
 
 export default async function withdrawProfit(req, res, next) {
   if (!req.user) return next("Login Required");
@@ -26,7 +26,7 @@ export default async function withdrawProfit(req, res, next) {
   newDoc.pendingExpenses = latestDoc.pendingExpenses;
   await newDoc.save();
 
-  await addDataToCompanyStat({
+  await addDataStatCollection({
     type: "PROFIT_WITHDRAWAL",
     amount: amountInCents,
   });

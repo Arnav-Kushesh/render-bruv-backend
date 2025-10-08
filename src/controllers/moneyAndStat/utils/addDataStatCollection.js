@@ -1,32 +1,33 @@
-import CompanyStat from "../../../database/models/money/CompanyStat.js";
+import Stat from "../../../database/models/money/Stat.js";
 
-export default async function addDataToCompanyStat({ type, amount }) {
-  await addDataCore({ durationType: "DATE", type, amount });
-  await addDataCore({ durationType: "MONTH", type, amount });
-  await addDataCore({ durationType: "YEAR", type, amount });
+export default async function addDataStatCollection({ type, amount, userId }) {
+  await addDataCore({ durationType: "DATE", type, amount, userId });
+  await addDataCore({ durationType: "MONTH", type, amount, userId });
+  await addDataCore({ durationType: "YEAR", type, amount, userId });
 }
 
-async function addDataCore({ durationType, type, amount }) {
+async function addDataCore({ durationType, type, amount, userId }) {
   let date = generateDateString(durationType);
 
-  let docExists = await CompanyStat.findOne({
+  let findQuery = {
     date,
     durationType,
     type,
-  });
+  };
+
+  if (userId) findQuery.userId = userId;
+
+  let docExists = await Stat.findOne(findQuery);
 
   if (docExists) {
-    await CompanyStat.findOneAndUpdate(
-      { _id: docExists._id },
-      { $inc: { amount } }
-    );
+    await Stat.findOneAndUpdate({ _id: docExists._id }, { $inc: { amount } });
   } else {
-    let newDoc = new CompanyStat();
+    let newDoc = new Stat();
     newDoc.type = type;
     newDoc.durationType = durationType;
     newDoc.amount = amount;
     newDoc.date = date;
-
+    if (userId) newDoc.userId = userId;
     await newDoc.save();
   }
 }

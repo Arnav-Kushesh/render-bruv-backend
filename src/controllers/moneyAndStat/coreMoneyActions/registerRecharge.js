@@ -2,7 +2,7 @@ import CompanyTransaction from "../../../database/models/money/CompanyTransactio
 import RechargeHistory from "../../../database/models/money/RechargeHistory.js";
 import UserTransaction from "../../../database/models/money/UserTransaction.js";
 import Profile from "../../../database/models/Profile.js";
-import addDataToCompanyStat from "../utils/addDataToCompanyStat.js";
+import addDataStatCollection from "../utils/addDataStatCollection.js";
 
 export default async function registerRecharge({
   userId,
@@ -145,7 +145,7 @@ async function addRevenueDocToCompanyTransactions({
   newPendingExpenses,
   newWithdrawableAmount,
 }) {
-  await addDataToCompanyStat({ type: "REVENUE", amount: amountInCents });
+  await addDataStatCollection({ type: "REVENUE", amount: amountInCents });
 
   let newDoc = new CompanyTransaction();
   newDoc.type = "REVENUE";
@@ -166,7 +166,7 @@ async function addPendingExpenseDocToCompanyTransactions({
   newPendingExpenses,
   newWithdrawableAmount,
 }) {
-  await addDataToCompanyStat({
+  await addDataStatCollection({
     type: "PENDING_EXPENSE",
     amount: amountInCents / 2,
   });
@@ -190,7 +190,7 @@ async function addProfitDocToCompanyTransactions({
   newPendingExpenses,
   newWithdrawableAmount,
 }) {
-  await addDataToCompanyStat({ type: "PROFIT", amount: amountInCents / 1 });
+  await addDataStatCollection({ type: "PROFIT", amount: amountInCents / 1 });
 
   let newDoc = new CompanyTransaction();
   newDoc.type = "PROFIT";

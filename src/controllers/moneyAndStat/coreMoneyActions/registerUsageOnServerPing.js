@@ -3,6 +3,7 @@ import UserTransaction from "../../../database/models/money/UserTransaction.js";
 import Profile from "../../../database/models/Profile.js";
 import ServerInstance from "../../../database/models/ServerInstance.js";
 import stopInstanceOnRunpod from "../../instance/runpod/stopInstanceOnRunpod.js";
+import addDataStatCollection from "../utils/addDataStatCollection.js";
 
 //decrements Balance And Registers Usage On ServerPing
 export default async function registerUsageOnServerPing(podId) {
@@ -48,6 +49,28 @@ export default async function registerUsageOnServerPing(podId) {
         },
       }
     );
+
+    await addDataStatCollection({
+      type: "INSTANCE_USAGE_IN_MIN",
+      amount: 1,
+    });
+
+    await addDataStatCollection({
+      type: "INSTANCE_USAGE_IN_CENTS",
+      amount: perMinutePrice,
+    });
+
+    await addDataStatCollection({
+      type: "USER_INSTANCE_USAGE_IN_MIN",
+      userId: author._id,
+      amount: 1,
+    });
+
+    await addDataStatCollection({
+      type: "USER_INSTANCE_USAGE_IN_CENTS",
+      userId: author._id,
+      amount: perMinutePrice,
+    });
 
     let newTransaction = new UserTransaction();
     newTransaction.type = "AMOUNT_DEDUCTED";
