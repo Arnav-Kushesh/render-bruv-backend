@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import mainMongooseInstance from "../mongoConfig.js";
+import supportedGpuTypes from "../../data/supportedGpuTypes.js";
 
 var ObjectId = mongoose.mongo.ObjectId;
 
@@ -20,14 +21,7 @@ let serverInstance = new mongoose.Schema(
     // because sometimes runpod GPU stops working if you restart a stopped instance
     instanceGpuType: {
       type: String,
-      enum: [
-        "RTX_5090",
-        "RTX_6000_ADA",
-        "RTX_4090",
-        "RTX_3090",
-        "RTX_A6000",
-        "RTX_A5000",
-      ],
+      required: true,
     },
     stoppedAt: Date,
     startedAt: Date,

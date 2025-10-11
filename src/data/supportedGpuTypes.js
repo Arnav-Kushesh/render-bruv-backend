@@ -20,14 +20,7 @@ let supportedGpuTypes = {
     label: "Fast",
     secondaryLabel: "RTX 4090",
     features: ["24 GB VRAM", "41 GB RAM", "6vCPUs"],
-    disable: true,
-  },
-  L40S: {
-    runpodId: "NVIDIA L40S",
-    price: 180,
-    label: "Super Fast",
-    secondaryLabel: "NVIDIA L40S",
-    features: ["48 GB VRAM", "50 GB RAM", "9vCPUs"],
+    disabled: true,
   },
   A40: {
     runpodId: "NVIDIA A40",
@@ -36,13 +29,30 @@ let supportedGpuTypes = {
     secondaryLabel: "NVIDIA A40",
     features: ["48 GB VRAM", "94 GB RAM", "16vCPUs"],
   },
-  H100_PCIE: {
-    runpodId: "NVIDIA H100 PCIe",
-    price: 360,
-    label: "Fast",
-    secondaryLabel: "NVIDIA H100 PCIe",
-    features: ["80 GB VRAM", "188 GB RAM", "16vCPUs"],
+  L40S: {
+    runpodId: "NVIDIA L40S",
+    price: 180,
+    label: "Super Fast",
+    secondaryLabel: "NVIDIA L40S",
+    features: ["48 GB VRAM", "50 GB RAM", "9vCPUs"],
   },
+
+  A100_80GB_PCIE: {
+    runpodId: "NVIDIA A100 80GB PCIe",
+    price: 240,
+    label: "Super Duper Fast",
+    secondaryLabel: "NVIDIA H100 PCIe",
+    features: ["80 GB VRAM", "117 GB RAM", "8vCPUs"],
+  },
+
+  // H100_PCIE: {
+  //   runpodId: "NVIDIA H100 PCIe",
+  //   price: 360,
+  //   label: "Super Duper Fast",
+  //   secondaryLabel: "NVIDIA H100 PCIe",
+  //   features: ["80 GB VRAM", "188 GB RAM", "16vCPUs"],
+  //   disabled: true,
+  // },
   //   RTX_3090: { runpodId: "NVIDIA GeForce RTX 3090", pricing: 120 },
 };
 
