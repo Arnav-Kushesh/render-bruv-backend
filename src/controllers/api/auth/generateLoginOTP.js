@@ -19,9 +19,9 @@ export default async function generateLoginOTP(req, res, next) {
 
   let frenchText = {
     content: `
-   Karuna - Your login OTP : ${randomCode}
+   Render Bruv - Your login OTP : ${randomCode}
   `,
-    subject: "Login OTP - Karuna",
+    subject: "Login OTP - Render Bruv",
   };
 
   await sendEmailBoilerplate({

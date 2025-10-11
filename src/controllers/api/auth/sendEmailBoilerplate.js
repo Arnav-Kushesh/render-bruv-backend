@@ -16,10 +16,10 @@ export default async function sendEmailBoilerplate({
   let emailContent = `
       <table width="100%" cellspacing="0" cellpadding="0" border="0">
         <tr>
-          <td height="15" style="background:#EF6824;"></td>
+          <td height="15" style="background:#5324ef;"></td>
         </tr>
         <tr>
-          <td style="background:rgba(240, 104, 26, 0.22); padding:30px; padding-top:0; color:#111111 !important; font-family:Arial, sans-serif; font-size:14px; line-height:20px;">
+          <td style="background:rgba(34, 26, 240, 0.15); padding:30px; padding-top:0; color:#111111 !important; font-family:Arial, sans-serif; font-size:14px; line-height:20px;">
             <br><br>  
 
             <font>
@@ -28,7 +28,7 @@ export default async function sendEmailBoilerplate({
             <br><br>
             ${buttonLink ? linkElement : ""}
             <br><br>
-            <p style="margin:0;">Thanks &amp; regards,<br>Karuna Team</p>
+            <p style="margin:0;">Thanks &amp; regards,<br>Render Bruv Team</p>
           </td>
         </tr>
       </table>

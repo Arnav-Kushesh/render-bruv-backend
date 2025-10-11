@@ -16,6 +16,7 @@ export default async function createInstanceOnRunpod({
   try {
     // Example config — you can also take these from req.body
     const body = {
+      cloudType: "COMMUNITY",
       name: `${loggedInUser.username}-pod`,
       imageName: "merahulahire/cloud-blender-render",
       gpuTypeIds: [runpodGpuId],

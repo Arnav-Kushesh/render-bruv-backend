@@ -13,7 +13,7 @@ export default async function sendEmail({
 
   try {
     await resend.emails.send({
-      from: "NoReply <noreply@upon.one>",
+      from: "NoReply <noreply@renderbruv.com>",
       to: [receiverEmail],
       subject: subject,
       html: htmlContent,

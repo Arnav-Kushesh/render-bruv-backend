@@ -7,7 +7,7 @@ export default async function sendMailForAccountDeletion({
   let frenchText = {
     content: `
   <p>
-We have received a request to delete your Karuna account.
+We have received a request to delete your Render Bruv account.
 <br>
 If you believe you have received this message in error, please ignore it.
 <br><br>
@@ -18,7 +18,7 @@ To confirm the deletion of your account, please use the following confirmation c
 </p>
 
     `,
-    subject: "Karuna - Account Deletion",
+    subject: "Render Bruv - Account Deletion",
   };
 
   await sendEmailBoilerplate({

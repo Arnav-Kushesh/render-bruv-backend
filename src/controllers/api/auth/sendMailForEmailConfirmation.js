@@ -11,7 +11,7 @@ export default async function sendMailForEmailConfirmation({
     <p>
   
        <span>
-       We have received a request to confirm your email address for Karuna.
+       We have received a request to confirm your email address for Render Bruv.
        </span> 
         <br>
         <span>
@@ -31,7 +31,7 @@ export default async function sendMailForEmailConfirmation({
        </p>
 
     `,
-    subject: "Confirm Email - Karuna",
+    subject: "Confirm Email - Render Bruv",
   };
 
   await sendEmailBoilerplate({

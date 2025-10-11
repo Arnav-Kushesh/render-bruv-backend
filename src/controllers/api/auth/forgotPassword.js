@@ -21,7 +21,7 @@ export default async function forgotPassword(req, res, next) {
   let frenchText = {
     content: `
       <p style="color:#B4AB87">
-      We have received a request to reset your Karuna password.
+      We have received a request to reset your Render Bruv password.
       <br>
       If you believe you have received this message in error, please ignore it.
       <br><br>
@@ -31,7 +31,7 @@ export default async function forgotPassword(req, res, next) {
 
   `,
     buttonText: "Click here to change your password",
-    subject: "Karuna - Forgot Password",
+    subject: "Render Bruv - Forgot Password",
   };
 
   await sendEmailBoilerplate({
